@@ -12,7 +12,7 @@ usage() {
   cat <<'EOF'
 Usage: ./scripts/install-tmux.sh [--dry-run] [--check] [--help]
 
-Install or validate tmux, TPM, tmux plugins, and repo-managed tmux.conf linking.
+Install or validate tmux, TPM, tmux plugins, and repo-managed tmux.conf copying.
 EOF
   usage_common_flags
 }
@@ -60,8 +60,8 @@ apply_tmux_conf() {
     return
   fi
 
-  ensure_symlink "$repo_tmux_conf" "$target_tmux_conf"
-  log "Linked tmux.conf to $target_tmux_conf"
+  ensure_file_copy "$repo_tmux_conf" "$target_tmux_conf"
+  log "Copied tmux.conf to $target_tmux_conf"
 
   if (( DRY_RUN || CHECK_ONLY )); then
     log "Would reload tmux configuration if a tmux server is running"
@@ -90,7 +90,7 @@ run_checks() {
   fi
 
   if [[ -f "$REPO_ROOT/tmux.conf" ]]; then
-    ensure_symlink "$REPO_ROOT/tmux.conf" "$HOME/.tmux.conf" || ((failures+=1))
+    ensure_file_copy "$REPO_ROOT/tmux.conf" "$HOME/.tmux.conf" || ((failures+=1))
   else
     warn "tmux.conf is not in the repository yet"
   fi

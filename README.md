@@ -8,7 +8,7 @@
 - `scripts/install-shell.sh`: `zsh`, `oh-my-zsh`, zsh plugin, Codex CLI, `.zshrc` 설정
 - `scripts/install-tmux.sh`: `tmux`, TPM, tmux plugin 설치, `tmux.conf` 반영
 - `lib/common.sh`: 공통 유틸 함수
-- `tmux.conf`: `~/.tmux.conf`로 링크되는 기본 tmux 설정
+- `tmux.conf`: `~/.tmux.conf`로 복사되는 기본 tmux 설정
 
 ## 사용법
 
@@ -31,12 +31,12 @@ chmod +x install.sh scripts/install-shell.sh scripts/install-tmux.sh
 ./install.sh --check
 ```
 
-- `--dry-run`: 실제 설치, clone, `chsh`, 심볼릭 링크 없이 예정 작업만 출력
+- `--dry-run`: 실제 설치, clone, `chsh`, 파일 복사 없이 예정 작업만 출력
 - `--check`: 패키지 매니저, 필수 명령, 네트워크, npm registry 접근, 쓰기 가능 경로, `tmux.conf` 배치 상태를 점검
 
 ## tmux.conf 반영 방식
 
-레포지토리 루트에 `tmux.conf`를 추가하면 `scripts/install-tmux.sh`가 이를 `~/.tmux.conf`로 심볼릭 링크한다. 이미 tmux 세션 안에서 실행 중이면 `tmux source-file ~/.tmux.conf`까지 수행하고, TPM이 있으면 `install_plugins`로 플러그인도 자동 설치한다.
+레포지토리 루트에 `tmux.conf`를 추가하면 `scripts/install-tmux.sh`가 이를 `~/.tmux.conf`로 복사한다. 이미 tmux 세션 안에서 실행 중이면 `tmux source-file ~/.tmux.conf`까지 수행하고, TPM이 있으면 `install_plugins`로 플러그인도 자동 설치한다.
 
 현재 기본 `tmux.conf`에는 아래 플러그인이 선언되어 있다.
 

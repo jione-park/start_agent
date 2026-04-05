@@ -178,6 +178,24 @@ ensure_symlink() {
   run_cmd ln -s "$source_path" "$target_path"
 }
 
+ensure_file_copy() {
+  local source_path="$1"
+  local target_path="$2"
+
+  if [[ ! -f "$source_path" ]]; then
+    error "Cannot copy missing source file: $source_path"
+    return 1
+  fi
+
+  if (( CHECK_ONLY )); then
+    log "File can be copied: $source_path -> $target_path"
+    return 0
+  fi
+
+  mkdir -p "$(dirname "$target_path")"
+  run_cmd cp "$source_path" "$target_path"
+}
+
 check_writable_dir() {
   local dir_path="$1"
 
